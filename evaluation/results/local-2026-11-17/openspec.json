@@ -1,0 +1,56 @@
+{
+  "items": [
+    {
+      "id": "agent-evaluation",
+      "type": "spec",
+      "valid": true,
+      "issues": [],
+      "durationMs": 18
+    },
+    {
+      "id": "implement-food-guardian",
+      "type": "change",
+      "valid": true,
+      "issues": [],
+      "durationMs": 65
+    },
+    {
+      "id": "inventory-ledger",
+      "type": "spec",
+      "valid": true,
+      "issues": [],
+      "durationMs": 4
+    },
+    {
+      "id": "meal-planning",
+      "type": "spec",
+      "valid": true,
+      "issues": [],
+      "durationMs": 1
+    }
+  ],
+  "summary": {
+    "totals": {
+      "items": 4,
+      "passed": 4,
+      "failed": 0
+    },
+    "byType": {
+      "change": {
+        "items": 1,
+        "passed": 1,
+        "failed": 0
+      },
+      "spec": {
+        "items": 3,
+        "passed": 3,
+        "failed": 0
+      }
+    }
+  },
+  "version": "1.0",
+  "root": {
+    "path": "/Users/esleyw/Desktop/DIC3/Food-Guardian",
+    "source": "nearest"
+  }
+}

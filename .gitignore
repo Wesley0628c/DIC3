@@ -6,3 +6,11 @@ __pycache__/
 .env.*
 !.env.example
 .streamlit/secrets.toml
+.tools/
+tooling/node_modules/
+.pytest_cache/
+*.db
+*.db-shm
+*.db-wal
+data/chroma_db/
+evaluation/results/live_*
