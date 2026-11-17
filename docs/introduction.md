@@ -25,4 +25,4 @@ Food Guardian 結合 SQLite 批次庫存、確定性份量換算、候選排序�
 3. 來源標記、缺額與未知狀態的解釋，區分計算證據與模型文字。
 4. 可重現的小型測試及比較方案，分開報告離線邏輯、工具選擇、人工品質與家庭減廢效果。
 
-目前已可驗證程式行為；B0／B1／P 的控制比較、人工評分與真實家庭試驗仍屬研究工作。來源詳見 [References](references.md)，相關研究詳見 [Related Work](related-work.md)。
+B0／B1／P 的控制比較、人工評分與家庭試驗均為後續規劃。來源詳見 [References](references.md)，相關研究詳見 [Related Work](related-work.md)。

@@ -25,4 +25,4 @@ SDG 12 的 2025 官方進度頁 [R1] 提供近期政策脈絡，所引統計仍�
 ## 4. Existing Research → Limitations → Research Gap → Our Project
 既有研究支持以資料與領域知識約束推薦，但不同任務的表現無法直接回答家庭使用者是否有足量合規庫存。由此提出研究假設：在相同庫存、規則與模型條件下，工具核量與驗證流程能改善可執行性。Food Guardian 將比較一般 LLM（B0）、同資料的 LLM（B1）及工具流程（P），主要以 P 與 B1 評估流程增益。
 
-本機目前只有確定性測試及靜態來源檢查，不能以其通過率當作 P 優於 B1 的實驗結果。正式比較需固定模型、提示、資料快照與參考日期，保存重複執行原始輸出，並由獨立人工建立及覆核標準答案。詳見 [研究補強](proposal-strengthening.md)與 [References](references.md)。
+本作業尚未執行比較實驗，不預先宣稱 P 優於 B1。正式比較需固定模型、提示、資料快照與參考日期，保存重複執行原始輸出，並由獨立人工建立及覆核標準答案。詳見 [研究補強](proposal-strengthening.md)與 [References](references.md)。

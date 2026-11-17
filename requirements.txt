@@ -1,6 +1,0 @@
-# Python 3.11+. Offline UI and OpenAI-compatible agent; Gemini/RAG are optional.
-streamlit>=1.66,<2
-pandas>=2.2,<3
-plotly>=5.20,<7
-python-dotenv>=1.0,<2
-openai>=1.104,<3
