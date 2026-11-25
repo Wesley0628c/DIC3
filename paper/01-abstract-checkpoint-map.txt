@@ -1,0 +1,53 @@
+================================================================================
+ABSTRACT CHECKPOINT VERIFICATION MAP (A2Z SOP: TOKENS A--F)
+Project: Food Guardian (DIC4 IEEE Conference Paper)
+Target: ICEB 2027 / IEEE Two-Column Conference Template
+Step: 000-abstract Assembly
+================================================================================
+
+[CHECKPOINT 1: TITLE & METADATA]
+- Title: Food Guardian: An Inventory-Aware AI Agent for Household Food Management and Waste Reduction
+- Format: IEEEtran conference style (\documentclass[conference]{IEEEtran})
+- Authors: Placeholder affiliations and contact emails included.
+
+[CHECKPOINT 2: A--F NARRATIVE MAPPING]
+
+Token A (Attention Getter - Motivation & Societal Significance):
+- Text: "Household food waste motivates the development of tools that connect available ingredients with practical meal planning."
+- Grounding: Anchored in UNEP 2024 and UN SDG 12.3 global food waste statistics.
+- Status: [VERIFIED]
+
+Token B (But - Practical Bottleneck & Challenge):
+- Text: "However, generated recipes require verification against ingredient quantities, storage information, and user constraints before they can support actionable decisions."
+- Grounding: FDA labeling confusion, lack of physical pantry verification, hallucinated ingredients.
+- Status: [VERIFIED]
+
+Token C (Cure - Proposed AI Agent Solution):
+- Text: "This study proposes Food Guardian, an inventory-aware artificial intelligence agent that combines natural-language interaction with database retrieval, food-storage rules, and usage analysis."
+- Grounding: Dedicated Domain AI Agent integrating conversational interface with relational database.
+- Status: [VERIFIED]
+
+Token D (Development - Technical Methodology & Architecture):
+- Text: "A large language model coordinates tool calls and generates candidate meals, while deterministic modules check ingredient availability, enforce defined constraints, and prioritize eligible ingredients by relevant dates. Missing storage information triggers clarification, and inventory changes require user confirmation. The prototype architecture is designed using Python, SQLite, Pandas, and a source-documented rule base."
+- Grounding: Decoupled hybrid paradigm (LLM Planner + Deterministic Python/SQL Verification + ACID Transaction).
+- Status: [VERIFIED]
+
+Token E (Experiments - Evaluation Benchmark & Baselines):
+- Text: "Evaluation employs 20--30 ingredient types, 20--30 recipes, and 30 benchmark scenarios covering sufficient inventory, shortages, date-related conditions, incomplete information, and preference conflicts. Experimental comparisons contrast a generic language model (B_0) and an inventory-conditioned model (B_1) against the full Food Guardian pipeline (P). Assessment measures recipe feasibility, inventory matching, date-reminder accuracy, rule violations, clarification behavior, and feasible-solution coverage."
+- Grounding: 30 structured testbeds across 5 categories with B0/B1/P baselines and 6 quantitative metrics.
+- Status: [VERIFIED]
+
+Token F (Findings - Expected Outcomes & Ethical Boundaries):
+- Text: "The expected contributions are an explainable agent prototype, traceable decision records, and a reproducible evaluation procedure for studying the integration of language-model planning with explicit inventory constraints."
+- Grounding: Honest academic boundary -- expected findings only, no false empirical claims.
+- Status: [VERIFIED]
+
+[CHECKPOINT 3: INDEX TERMS]
+- Terms: Artificial intelligence agents, household food waste, inventory management, recipe recommendation, food-storage rules, tool calling.
+- Count: 6 keywords.
+- Status: [VERIFIED]
+
+[ASSEMBLY STATUS]
+- Step 000-abstract: ASSEMBLED AND VALIDATED.
+- Ready for Step 001-introduction assembly.
+================================================================================
