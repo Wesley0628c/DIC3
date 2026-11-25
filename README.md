@@ -44,7 +44,7 @@
 
 | 瑕疵版 (Draft A) | 正常完成版 (Draft B) |
 | :---: | :---: |
-| ![瑕疵版 Page 1](assets/paper_comparison/flawed_page_1.png) | ![正常版 Page 1](assets/paper_comparison/normal_page_1.png) |
+| [![瑕疵版 Page 1](./assets/paper_comparison/flawed_page_1.png)](./assets/paper_comparison/flawed_page_1.png)<br>[🔍 點此檢視原始大圖](./assets/paper_comparison/flawed_page_1.png) | [![正常版 Page 1](./assets/paper_comparison/normal_page_1.png)](./assets/paper_comparison/normal_page_1.png)<br>[🔍 點此檢視原始大圖](./assets/paper_comparison/normal_page_1.png) |
 
 * **排版分析**：Page 1 兩版保持一致，首頁佈局完全遵照 IEEEtran 雙欄規範，收錄完整 Abstract、Index Terms 以及 Section I 的 Motivation、Problem Formulation 與 Key Contributions。
 
@@ -54,7 +54,7 @@
 
 | 瑕疵版 (缺少核心公式) | 正常完成版 (含分段公式 1) |
 | :---: | :---: |
-| ![瑕疵版 Page 2](assets/paper_comparison/flawed_page_2.png) | ![正常版 Page 2](assets/paper_comparison/normal_page_2.png) |
+| [![瑕疵版 Page 2](./assets/paper_comparison/flawed_page_2.png)](./assets/paper_comparison/flawed_page_2.png)<br>[🔍 點此檢視原始大圖](./assets/paper_comparison/flawed_page_2.png) | [![正常版 Page 2](./assets/paper_comparison/normal_page_2.png)](./assets/paper_comparison/normal_page_2.png)<br>[🔍 點此檢視原始大圖](./assets/paper_comparison/normal_page_2.png) |
 
 * **瑕疵版缺陷**：Section III 在介紹完系統 4 大子系統後，直接跳入決策流程與演算法，使得前面宣稱的「確定性份量換算與硬限制檢查」缺乏數學方程式定義。
 * **正常版修正**：補齊 **`B. Deterministic Formulation and Scaling Logic`**，以分段方程式形式化：
@@ -67,7 +67,7 @@
 
 | 瑕疵版 (文獻全擠在底部) | 正常完成版 (文獻自然順延) |
 | :---: | :---: |
-| ![瑕疵版 Page 3](assets/paper_comparison/flawed_page_3.png) | ![正常版 Page 3](assets/paper_comparison/normal_page_3.png) |
+| [![瑕疵版 Page 3](./assets/paper_comparison/flawed_page_3.png)](./assets/paper_comparison/flawed_page_3.png)<br>[🔍 點此檢視原始大圖](./assets/paper_comparison/flawed_page_3.png) | [![正常版 Page 3](./assets/paper_comparison/normal_page_3.png)](./assets/paper_comparison/normal_page_3.png)<br>[🔍 點此檢視原始大圖](./assets/paper_comparison/normal_page_3.png) |
 
 * **排版分析**：瑕疵版因 Page 2 缺少公式段落，整體內容提早結束，導致所有參考文獻 [1]–[8] 全數擠在第 3 頁下方；正常版文字自然推進，Page 3 底部收錄 References [1]–[3]，其餘文獻順延至第 4 頁。
 
@@ -77,11 +77,11 @@
 
 | ❌ 瑕疵版 (右欄全空，嚴重失衡) | ✅ 正常完成版 (雙欄平衡飽滿) |
 | :---: | :---: |
-| ![瑕疵版 Page 4](assets/paper_comparison/flawed_page_4.png) | ![正常版 Page 4](assets/paper_comparison/normal_page_4.png) |
+| [![瑕疵版 Page 4](./assets/paper_comparison/flawed_page_4.png)](./assets/paper_comparison/flawed_page_4.png)<br>[🔍 點此檢視原始大圖](./assets/paper_comparison/flawed_page_4.png) | [![正常版 Page 4](./assets/paper_comparison/normal_page_4.png)](./assets/paper_comparison/normal_page_4.png)<br>[🔍 點此檢視原始大圖](./assets/paper_comparison/normal_page_4.png) |
 
 * **致命排版瑕疵**：
-  * **瑕疵版**：左欄為 29 行之 Algorithm 1 演算法方塊，**右欄整欄 100% 完全空白**！在 IEEE 會議審稿中，這種大面積空白（Column Underfill）會被判定為排版未達標準。
-  * **正常版**：左欄為完整之 **Algorithm 1**，**右欄自然承接 References [4] 至 [8]**，左右兩欄高度均衡飽滿，完美符合 IEEE 雙欄會議 4 頁滿頁規格。
+  * **❌ 瑕疵版**：左欄為 29 行之 Algorithm 1 演算法方塊，**右欄整欄 100% 完全空白**！在 IEEE 會議審稿中，這種大面積空白（Column Underfill）會被判定為排版未達標準。
+  * **✅ 正常版**：左欄為完整之 **Algorithm 1**，**右欄自然承接 References [4] 至 [8]**，左右兩欄高度均衡飽滿，完美符合 IEEE 雙欄會議 4 頁滿頁規格。
 
 ---
 
