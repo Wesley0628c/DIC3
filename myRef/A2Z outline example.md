@@ -1,0 +1,41 @@
+# A2Z Outline Example: 26-Letter Academic Framework
+
+## A2Z SOP 26 字母結構定義
+- **A**: Attention Getter（動機與引題，最新數據與報告）
+- **B**: But（挑戰與現有不足，指出現有技術限制與 Research Gap）
+- **C**: Cure（提出的創新解藥，提出特定 Domain AI Agent）
+- **D**: Development（方法設計依據，結合 LLM、資料來源、分析與領域知識）
+- **E**: Experiments（評估規劃，Dataset、Baseline、Metrics）
+- **F**: Findings（預期成果，無虛構結果）
+- **G**: General（領域大背景現況）
+- **H**: However（深層技術與應用瓶頸）
+- **I**: In literature（文獻發展梳理）
+- **J**: Judgement（各方法優劣點評析）
+- **K**: Keypoint（設計精神與核心貢獻）
+- **L**: List organization（文章結構導覽）
+- **M**: Methods（既有文獻方法分類）
+- **N**: New proposed（本專案創新技術）
+- **O**: Organize（文獻比較與歸納表 Table I）
+- **PA**: Aim（研究目標陳述）
+- **PB**: Based on（依託基礎與背景）
+- **PC**: Cure / Cause（機制有效的原因）
+- **PD**: Design（系統架構設計，典範轉移）
+- **PE**: Paper Element（模組元件清單 ①～⑧）
+- **PF**: Formulation（功能與數學形式）
+- **PG**: Graph（架構圖與流程圖）
+- **PH**: How（如何達成設計目標）
+- **PI**: Implementation（虛擬碼落實 Algorithm 1）
+- **PJ**: Jump to an example（情境範例展示）
+- **PK**: Key points contribution（核心貢獻總結）
+- **PL**: Later simulation（後續模擬評估規劃）
+- **PM**: Math proof / Logic（邏輯檢驗）
+- **Q**: Quality & Quantity（指標與評估量）
+- **R**: Related method to compare（比較基準 B0, B1, P）
+- **S**: Simulation Setup（實驗環境設定 30 組情境）
+- **T**: Tuning parameters（調優參數）
+- **U**: Useful results（預期有用產出）
+- **V**: Verify（有效性驗證）
+- **W**: What proposed（回顧總結）
+- **X**: eXcel（專精情境與優勢）
+- **Y**: Yields（預期最終交付物）
+- **Z**: Zen（反思、邊界與未來展望）

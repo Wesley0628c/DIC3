@@ -1,0 +1,28 @@
+\section{Introduction}
+
+\subsection{Motivation and Societal Context (A: Attention Getter)}
+According to the United Nations Sustainable Development Goals (SDG) 2025 progress reporting on Goal 12.3 and the UNEP Food Waste Index Report~\cite{R1_UN_SDG2025, R7_UNEP2024}, global consumer food waste totals approximately 1.05 billion tonnes annually, across retail, food service, and household sectors. Households represent a substantial proportion of this waste. Consumers frequently purchase groceries without systematic visibility into remaining batch quantities, opening states, or optimal utilization sequence, resulting in avoidable spoilage. 
+
+\subsection{Problem Formulation and Practical Boundaries (B: But / Challenge)}
+The U.S. Food and Drug Administration (FDA) emphasizes that consumer confusion regarding date labeling (e.g., ``best if used by'' vs. ``use by'') and inadequate meal inventory management exacerbate household food waste~\cite{R2_FDA2026}. At the same time, cold food storage safety depends on nuanced factors including temperature, packaging integrity, and raw versus cooked status~\cite{R3_FoodSafety2023}. 
+
+While Large Language Models (LLMs) demonstrate remarkable conversational versatility, generative meal planners without grounded state verification exhibit notable failure modes:
+\begin{enumerate}
+    \item \textbf{Phantom Ingredients and Quantity Mismatch:} LLMs frequently recommend dishes requiring ingredients absent from the home or overlook portion scaling.
+    \item \textbf{Unchecked Storage Risks:} Generative planners fail to systematically identify ambiguous storage conditions or expired batches.
+    \item \textbf{Uncontrolled State Mutation:} Automated planners lack transactional integrity, deducting inventory without explicit human consent.
+\end{enumerate}
+
+\subsection{Research Gap and Proposed Approach (C: Cure \& D: Development)}
+Prior research has addressed image-to-recipe retrieval~\cite{R4_Liu2025_WACV}, structured nutrition database querying via LLMs~\cite{R5_Vavken2026}, and personalized dietary quality recommendation~\cite{R6_Wang2026}. However, existing systems do not bridge dynamic, batch-tracked household inventories with deterministic rule verification and traceable conversational agents. 
+
+To address this gap, we present \textbf{Food Guardian}, an inventory-aware AI agent system. Food Guardian adopts a hybrid paradigm: an LLM acts as an interactive Planner Agent coordinating natural-language understanding, while deterministic algorithms enforce mathematical portion scaling, date-based prioritization, and hard food-safety constraint checks against an authoritative rule base.
+
+\subsection{Key Contributions (E: Experiments \& F: Findings)}
+The primary contributions of this work are fourfold:
+\begin{enumerate}
+    \item \textbf{Hybrid Agent Architecture:} A modular design combining LLM conversational coordination with deterministic SQL inventory tracking, ensuring zero hallucinations in batch deduction.
+    \item \textbf{Formalized Verification Protocol:} A reproducible decision procedure (Algorithm 1) that explicitly flags missing storage metadata, prompts for human clarification, and halts execution before violating safety constraints.
+    \item \textbf{Rigorous Benchmark Framework:} A 30-scenario test suite across five typical household kitchen categories to evaluate feasibility, inventory matching, and safety compliance.
+    \item \textbf{Traceable Specification Methodology:} Complete alignment of architectural requirements, test cases, and behavioral boundaries using OpenSpec~\cite{T1_OpenSpec2026}.
+\end{enumerate}

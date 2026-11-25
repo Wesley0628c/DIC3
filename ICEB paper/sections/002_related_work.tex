@@ -1,0 +1,27 @@
+\section{Related Work}
+
+\subsection{AI in Recipe Generation and Food Retrieval (G--J: General to Judgement)}
+The application of AI to dietary planning has evolved significantly. Liu et al.~\cite{R4_Liu2025_WACV} developed retrieval-augmented recipe generation techniques to synthesize dish instructions from food imagery. While their work aligns visual embeddings with ingredient databases, it operates without constraints on physical household availability. Vavken et al.~\cite{R5_Vavken2026} evaluated LLMs in translating natural-language queries into structured database queries for nutritional systems, highlighting semantic precision limitations in complex field filters. Wang et al.~\cite{R6_Wang2026} introduced an LLM-RAG framework optimizing meal recommendations against the Healthy Eating Index (HEI). Although their system incorporates clinical dietary indices, it does not manage real-time pantry inventory transactions.
+
+\subsection{Domain Guidelines and Storage Heuristics (K--N: Keypoint to New Proposed)}
+Domain knowledge in food preservation is critical for decision safety. The FDA provides consumer-facing guidance on food planning and safe handling~\cite{R2_FDA2026}. FoodSafety.gov maintains rigorous refrigeration and freezing duration tables categorized by commodity types~\cite{R3_FoodSafety2023}. Crucially, Food Guardian models these guidelines as structured verification rules rather than unconstrained prompt context.
+
+\begin{table*}[t]
+\caption{Summary of Related Work and Research Boundaries (O: Organize)}
+\label{tab:related_work}
+\centering
+\begin{tabular}{lp{1.8cm}p{3.2cm}p{3.2cm}p{2.5cm}p{3.5cm}}
+\toprule
+\textbf{Ref} & \textbf{Focus} & \textbf{AI / Algorithmic Method} & \textbf{Domain Knowledge Source} & \textbf{Evaluation Dataset} & \textbf{Key Limitation / Research Boundary} \\
+\midrule
+Liu et al.~\cite{R4_Liu2025_WACV} & Vision-to-Recipe & Retrieval-Augmented Generation & Recipe \& ingredient ontology & Recipe1M dataset & Focuses on visual generation; does not account for pantry quantities or shelf-life. \\
+Vavken et al.~\cite{R5_Vavken2026} & Food Query Retrieval & LLM structured query translation & Food classification taxonomies & Food database query benchmarks & Analyzes query precision; lacks household inventory state tracking. \\
+Wang et al.~\cite{R6_Wang2026} & Nutritional Planning & LLM-RAG dietary recommendation & Healthy Eating Index (HEI) & NHANES / FPED nutritional data & Optimizes long-term nutrition; does not support dynamic kitchen stock deduction. \\
+FDA / FSIS~\cite{R2_FDA2026, R3_FoodSafety2023} & Consumer Safety & Deterministic shelf-life heuristics & Federal food-safety charts & Empirical food preservation guidelines & Static reference charts; requires automated integration for home use. \\
+\textbf{Food Guardian} & \textbf{Inventory-Aware Planning} & \textbf{Hybrid Agent: LLM Planner + Deterministic Verification} & \textbf{Authoritative Cold Storage Charts \& Expiration Rules} & \textbf{30 Standard Scenarios (Proposed)} & \textbf{Focuses on planning and inventory integrity; does not replace lab microbial safety tests.} \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsection{Research Hypothesis}
+Based on the synthesis summarized in Table~\ref{tab:related_work}, we formulate the following hypothesis: \textit{In identical inventory and dietary context states, a hybrid system with deterministic quantity calculation and rule-based screening will achieve significantly higher recipe execution feasibility and lower safety-rule violation rates than an unconstrained LLM or an inventory-prompted LLM.}
