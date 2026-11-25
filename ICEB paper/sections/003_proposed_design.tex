@@ -9,6 +9,18 @@ Food Guardian is organized into four decoupled subsystems:
     \item \textbf{Transactional State Manager:} Executes atomic ACID inventory updates only upon verified user confirmation.
 \end{itemize}
 
+\subsection{Deterministic Formulation and Scaling Logic}
+To prevent unit mismatch errors during recipe scaling, deterministic analytics explicitly parameterize the required ingredient quantity $Q_{\text{need}}$:
+\begin{equation}
+Q_{\text{need}} = 
+\begin{cases}
+\dfrac{Q_{\text{recipe}} \times N}{N_{\text{base}}}, & \text{if } N > 0 \text{ (convertible unit)}, \\[10pt]
+\text{quarantined}, & \text{otherwise (ambiguity caveat)},
+\end{cases}
+\label{eq:portion_scaling}
+\end{equation}
+where $Q_{\text{recipe}}$ and $N$ denote the recipe requirement and target dining persons, respectively, while $N_{\text{base}}$ and $Q_{\text{unit}}$ denote the base servings and unit conversion factor. Records with ambiguous units are quarantined rather than silently guessed.
+
 \subsection{Decision Procedure and Algorithm 1 (PF--PI: Formulation to Implementation)}
 The operational logic of Food Guardian is formalized in Algorithm~\ref{alg:workflow}. Ambiguous data triggers clarification prompts rather than generative guessing.
 

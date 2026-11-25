@@ -1,0 +1,13 @@
+\section{Discussion and Limitations}
+
+\subsection{Distinction Between Reminders and Safety Guarantees (Z: Zen)}
+Food Guardian explicitly distinguishes inventory scheduling reminders from biochemical safety guarantees. Software cannot observe cold-chain temperature interruptions, cross-contamination, or sensory spoilage indicators. Consequently, system outputs serve as decision support rather than authoritative sanitation certifications.
+
+\subsection{Jurisdictional Regulatory Differences}
+Federal U.S. guidelines (e.g., FDA~\cite{R2_FDA2026}) provide foundational principles for date interpretations. However, practical deployment in other jurisdictions (such as Taiwan) necessitates aligning expiration classifications with local Food and Drug Administration labeling statutes.
+
+\subsection{Deterministic Verification vs. Generative Flexibility (X: eXcel)}
+A central design trade-off lies between conversational fluidity and deterministic rigor. While unconstrained LLMs generate novel culinary suggestions, they risk hallucinatory deductions. Food Guardian prioritizes verifiable state management, ensuring that every deduction corresponds to an immutable database transaction.
+
+\section{Conclusion and Future Work (W: What Proposed \& Y: Yields)}
+This paper presented the design, architecture, and evaluation framework of Food Guardian, an inventory-aware agent system for household food management. By coupling conversational LLM interfaces with deterministic verification pipelines, Food Guardian provides actionable meal recommendations while safeguarding inventory integrity and adhering to storage rules. Future work will deploy the prototype in longitudinal household field trials to empirically quantify its impact on domestic waste reduction.

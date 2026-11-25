@@ -1,0 +1,64 @@
+\section{System Architecture and Proposed Design}
+
+\subsection{Architectural Components (PA--PE: Aim to Paper Elements)}
+Food Guardian is organized into four decoupled subsystems:
+\begin{itemize}
+    \item \textbf{Planner Agent:} Coordinates user dialogue, extracts meal intent (servings, dietary preferences, excluded ingredients), and orchestrates tool execution.
+    \item \textbf{Inventory and Recipe Engine:} A relational SQLite store managing batch items (Batch ID, Name, Quantity, Unit, In-stock Date, Expiration Type/Date, Opened Status, Storage Type).
+    \item \textbf{Deterministic Verification Module:} Implemented in Python; handles non-linear portion scaling, dimensional unit harmonization (e.g., mass, volume), and hard safety constraint filtering.
+    \item \textbf{Transactional State Manager:} Executes atomic ACID inventory updates only upon verified user confirmation.
+\end{itemize}
+
+\subsection{Deterministic Formulation and Scaling Logic}
+To prevent unit mismatch errors during recipe scaling, deterministic analytics explicitly parameterize the required ingredient quantity $Q_{\text{need}}$:
+\begin{equation}
+Q_{\text{need}} = 
+\begin{cases}
+\dfrac{Q_{\text{recipe}} \times N}{N_{\text{base}}}, & \text{if } N > 0 \text{ (convertible unit)}, \\[10pt]
+\text{quarantined}, & \text{otherwise (ambiguity caveat)},
+\end{cases}
+\label{eq:portion_scaling}
+\end{equation}
+where $Q_{\text{recipe}}$ and $N$ denote the recipe requirement and target dining persons, respectively, while $N_{\text{base}}$ and $Q_{\text{unit}}$ denote the base servings and unit conversion factor. Records with ambiguous units are quarantined rather than silently guessed.
+
+\subsection{Decision Procedure and Algorithm 1 (PF--PI: Formulation to Implementation)}
+The operational logic of Food Guardian is formalized in Algorithm~\ref{alg:workflow}. Ambiguous data triggers clarification prompts rather than generative guessing.
+
+\begin{algorithm}[t]
+\caption{Proposed Food Guardian Workflow}
+\label{alg:workflow}
+\begin{algorithmic}[1]
+\REQUIRE User query $Q$, inventory database $I$, recipe catalog $R$, safety rule base $K$, target servings $N$.
+\ENSURE Candidate dishes $C$, identified shortages $S$, explanations $E$, confirmed inventory updates $\Delta I$.
+\STATE Parse user query $Q$ for target servings $N$, dietary constraints, and requested style.
+\STATE Retrieve available inventory batches $B \leftarrow \text{Query}(I)$.
+\STATE Identify missing dates, unknown storage states, and non-convertible units in $B$.
+\IF{information is insufficient for decision}
+    \STATE Return clarification prompt to user; await input; goto line 2.
+\ENDIF
+\STATE Exclude batches violating defined safety rules: $B_{valid} \leftarrow \text{Filter}(B, K)$.
+\STATE Sort $B_{valid}$ ascending by applicable expiration date and storage priority.
+\STATE Retrieve candidate recipe set $R_{cand} \leftarrow \text{MatchRecipes}(B_{valid}, R)$.
+\FORALL{$r \in R_{cand}$}
+    \STATE Scale required ingredient quantities by factor $N / r.servings_{base}$.
+    \STATE Harmonize units between inventory $B_{valid}$ and recipe $r$.
+    \STATE Verify batch stock availability; identify ingredient shortages $s_r$.
+    \STATE Enforce hard user constraints (e.g., explicit allergen exclusions).
+\ENDFOR
+\STATE Rank feasible recipes; assemble explainable output $C, S, E$ detailing batch IDs, required quantities, and rule sources.
+\STATE Present $C, S, E$ to user; await explicit execution confirmation.
+\IF{user cancels or rejects proposal}
+    \STATE \textbf{terminate} without modifying database state $I$.
+\ENDIF
+\STATE Begin database transaction.
+\STATE Validate balance consistency and idempotency token.
+\IF{transaction fails or stock insufficient}
+    \STATE Rollback transaction; notify user.
+\ELSE
+    \STATE Update batch inventory: $I \leftarrow I - \Delta I$.
+    \STATE Insert traceable audit event into usage log.
+    \STATE Commit transaction.
+\ENDIF
+\RETURN Updated inventory status and execution record.
+\end{algorithmic}
+\end{algorithm}

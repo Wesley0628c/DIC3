@@ -1,0 +1,30 @@
+\section{Experimental Setup and Evaluation Protocol}
+
+\subsection{Baseline Configurations (R: Related Methods to Compare)}
+To systematically analyze the source of performance gains, three experimental cohorts are evaluated under identical prompt temperatures ($T=0.2$):
+\begin{itemize}
+    \item \textbf{Baseline 0 ($B_0$ - Generic LLM):} Receives only the natural language cooking request without inventory state.
+    \item \textbf{Baseline 1 ($B_1$ - Inventory-Conditioned LLM):} Receives complete inventory snapshots and rule texts directly in context, relying on pure generative reasoning.
+    \item \textbf{Proposed Pipeline ($P$ - Food Guardian):} Integrates deterministic tool calling, unit conversion, and rule-based pre/post-filtering.
+\end{itemize}
+
+\subsection{Benchmark Scenario Categorization (S: Simulation Setup)}
+A benchmark suite of 30 structured test scenarios is established, spanning 20--30 ingredient items and 20--30 standardized recipes:
+\begin{enumerate}
+    \item \textbf{Sufficient Stock (6 scenarios):} Full ingredient coverage with diverse expiration horizons.
+    \item \textbf{Ingredient Shortages (6 scenarios):} Recipes missing partial quantities or key staples.
+    \item \textbf{Date and Storage Boundary (6 scenarios):} Batches near expiration or past safe storage periods.
+    \item \textbf{Incomplete Information (6 scenarios):} Omitted storage type, missing purchase date, or ambiguous package units.
+    \item \textbf{Constraint and Preference Conflict (6 scenarios):} High-priority user exclusions conflicting with near-expiration ingredients.
+\end{enumerate}
+
+\subsection{Evaluation Metrics (Q: Quality \& Quantity)}
+Each scenario is executed over three independent runs. Performance is assessed using six quantitative metrics:
+\begin{itemize}
+    \item \textbf{Recipe Feasibility Rate ($R_{feas}$):} Percentage of recommended recipes whose ingredients are genuinely available and sufficient for $N$ servings.
+    \item \textbf{Inventory Matching Accuracy ($A_{inv}$):} Exactness of deducted batch quantities against required recipe amounts.
+    \item \textbf{Date-Reminder Accuracy ($P_{exp}$):} Correct prioritization of near-expiration batches over fresher stock.
+    \item \textbf{Rule Violation Rate ($V_{rule}$):} Proportion of recommendations incorporating batches that violate defined storage rules.
+    \item \textbf{Clarification Behavior ($C_{clar}$):} Frequency of correctly issuing clarification requests when input data is incomplete.
+    \item \textbf{Feasible Solution Coverage ($S_{cov}$):} Ability to identify at least one valid recipe when viable inventory exists.
+\end{itemize}
