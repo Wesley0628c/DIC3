@@ -9,11 +9,11 @@
 | --- | --- |
 | 1. 安裝 OpenSpec、規格驅動開發 | [操作與驗證流程](docs/openspec-workflow.md) |
 | 2. A–F、5 cores、3 trade-offs、10 details | [研究提案整理](docs/proposal-strengthening.md) |
-| 3. DESIGN → OpenSpec workflow | [DESIGN.md](DESIGN.md)、[規格](openspec/specs/)、[變更提案](openspec/changes/refactor-project-proposal/) |
+| 3. DESIGN → OpenSpec workflow | [DESIGN.md](DESIGN.md)、[規格](openspec/specs/)、[變更提案](openspec/changes/001-refactor-project-proposal/) |
 | 4. Introduction refactor | [緒論](docs/introduction.md) |
 | 5. Related Work refactor | [相關研究](docs/related-work.md)、[References](docs/references.md) |
 | **IC4. IEEE Conference Draft for Overleaf** | [論文目錄](paper/)、[main.tex](paper/main.tex)、[references.bib](paper/references.bib)、[Overleaf 匯入包](paper/ieee-food-guardian-overleaf.zip) |
-| **IC4. GitHub OpenSpec CI** | [.github/workflows/openspec-validate.yml](.github/workflows/openspec-validate.yml)、[IC4 規格變更](openspec/changes/ic4-ieee-conference-draft/) |
+| **IC4. GitHub OpenSpec CI** | [.github/workflows/openspec-validate.yml](.github/workflows/openspec-validate.yml)、[IC4 規格變更](openspec/changes/002-ic4-ieee-conference-draft/) |
 
 ## 課堂三部分材料
 
@@ -29,6 +29,7 @@
 
 ```bash
 npm ci --prefix tooling
-OPENSPEC_TELEMETRY=0 tooling/node_modules/.bin/openspec status --change refactor-project-proposal
+OPENSPEC_TELEMETRY=0 tooling/node_modules/.bin/openspec status --change 001-refactor-project-proposal
+OPENSPEC_TELEMETRY=0 tooling/node_modules/.bin/openspec status --change 002-ic4-ieee-conference-draft
 OPENSPEC_TELEMETRY=0 tooling/node_modules/.bin/openspec validate --all --strict --no-interactive
 ```

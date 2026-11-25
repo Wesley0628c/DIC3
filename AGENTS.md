@@ -8,6 +8,8 @@ This repository is a dedicated **Research & Academic Paper Workspace** (IC4: Ove
 - **Writing Methodology**: A to Z academic narrative (Attention Getter, Background, Problem, Existing Limitations, Proposed Solution, Key Contributions).
 
 ## Key Workflows
-1. **Paper Authoring**: Maintain `paper/main.tex` and `paper/references.bib` for Overleaf export.
-2. **Spec Verification**: Execute `tooling/node_modules/.bin/openspec validate --all --strict --no-interactive` before committing.
-3. **CI Synchronization**: Ensure `.github/workflows/openspec-validate.yml` passes on all pushes to GitHub.
+1. **Numbered Change Convention**: Always create OpenSpec changes with `00N-xxxxx` prefix (e.g. `001-refactor-project-proposal`, `002-ic4-ieee-conference-draft`).
+2. **A2Z Method Compliance**: Adhere to `research/a2z-sop-methodology.md` for section structure and claim boundaries.
+3. **Paper Authoring**: Maintain `paper/main.tex` and `paper/references.bib` for Overleaf export.
+4. **Spec Verification**: Execute `tooling/node_modules/.bin/openspec validate --all --strict --no-interactive` before committing.
+5. **CI Synchronization**: Ensure `.github/workflows/openspec-validate.yml` passes on all pushes to GitHub.

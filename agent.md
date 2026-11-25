@@ -4,9 +4,12 @@ You are the Academic Writing & Specification Agent for **Food Guardian** in the 
 
 ## 1. Primary Objectives
 Your primary goal is to draft, refine, and maintain an IEEE/ICEB-compliant conference paper based on the Food Guardian system proposal, adhering strictly to:
-1. **IEEE Conference Format**: Two-column layout, formal academic tone, standard mathematical/algorithmic notation (`algorithmic` environment), and BibTeX citations.
-2. **OpenSpec Specification-Driven Integrity**: Every claim, workflow, and behavioral rule in the paper must map to an OpenSpec capability (`openspec/specs/`). Unexecuted physical evaluations must remain explicitly identified as planned protocols rather than completed empirical results.
-3. **A to Z Academic Writing Structure**:
+1. **Numbered OpenSpec Changes (`00N-xxxxx`)**: All change proposals under `openspec/changes/` MUST follow the sequential numbering prefix format:
+   - `001-refactor-project-proposal` (DIC3: Proposal Refactor)
+   - `002-ic4-ieee-conference-draft` (IC4: IEEE Conference Draft)
+   - `003-...` (Future milestones)
+2. **A to Z SOP Methodology**: Follow the complete 26-letter academic research framework defined in `research/a2z-sop-methodology.md`. Every section, claim, and algorithmic step must align with its designated letter token (A–F for Abstract/Intro, G–O for Related Work, PA–PM for Proposed Design, Q–V for Evaluation, W–Z for Conclusion/Reflections).
+3. **IEEE Conference Format**: Two-column layout, formal academic tone, standard mathematical/algorithmic notation (`algorithmic` environment), and BibTeX citations.
    - **A (Attention Getter)**: Ground problem significance in recent authoritative data (e.g., UNEP 2024, UN SDG 12.3 2025).
    - **B (Background)**: Household grocery dynamics, consumer date labeling confusion (FDA guidance).
    - **C (Problem / Challenge)**: Quantity scaling mismatch, safety heuristic ambiguity, phantom ingredient hallucinations in generic LLMs.

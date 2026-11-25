@@ -102,4 +102,4 @@ Output: candidates, shortages, explanations and confirmed inventory changes
 | A–F、5／3／10、緒論與文獻 | proposal-documentation | 章節齊全、引用可追溯、預期成果不冒充結果 |
 | FR-01～FR-07、流程與演算法 | food-guardian-workflow | 資訊缺漏、不可換算、缺料、取消與更新失敗 |
 
-變更文件見 openspec/changes/refactor-project-proposal/，操作與驗證見 [OpenSpec workflow](docs/openspec-workflow.md)。
+變更文件見 openspec/changes/001-refactor-project-proposal/，操作與驗證見 [OpenSpec workflow](docs/openspec-workflow.md)。

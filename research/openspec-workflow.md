@@ -16,7 +16,7 @@ OPENSPEC_TELEMETRY=0 tooling/node_modules/.bin/openspec --version
 1. 依作業整理 A–F、五個核心、三項取捨與十個細節。
 2. 在 DESIGN.md 定義需求、資料流、架構、流程與演算法。
 3. 將設計轉成 openspec/specs/ 的 SHALL 需求及 WHEN／THEN 情境。
-4. 在 changes/refactor-project-proposal/ 建立 proposal、design、spec deltas 及 tasks。
+4. 在 changes/001-refactor-project-proposal/ 建立 proposal、design、spec deltas 及 tasks。
 5. 重構 Introduction、Related Work，核對引用與研究缺口。
 6. 驗證規格與文件對應；本次範圍為提案重構，不包含系統程式開發。
 
@@ -29,7 +29,7 @@ proposal-documentation 規格則要求 A–F、5／3／10、緒論、相關研�
 ## 4. 檢查命令
 
 ```bash
-OPENSPEC_TELEMETRY=0 tooling/node_modules/.bin/openspec status --change refactor-project-proposal
+OPENSPEC_TELEMETRY=0 tooling/node_modules/.bin/openspec status --change 001-refactor-project-proposal
 OPENSPEC_TELEMETRY=0 tooling/node_modules/.bin/openspec validate --all --strict --no-interactive
 ```
 
