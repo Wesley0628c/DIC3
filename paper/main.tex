@@ -1,0 +1,202 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{url}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+\title{Food Guardian: An Inventory-Aware AI Agent for Household Food Management and Waste Reduction}
+
+\author{\IEEEauthorblockN{Wesley Chen}
+\IEEEauthorblockA{\textit{Department of Computer Science and Information Engineering} \\
+\textit{National University}\\
+Taipei, Taiwan \\
+wesley@example.edu}
+\and
+\IEEEauthorblockN{Research Collaborator}
+\IEEEauthorblockA{\textit{Graduate Institute of Data Science and IoT} \\
+\textit{National University}\\
+Taipei, Taiwan \\
+collaborator@example.edu}
+}
+
+\maketitle
+
+\begin{abstract}
+Household food waste motivates the development of tools that connect available ingredients with practical meal planning. However, generated recipes require verification against ingredient quantities, storage information, and user constraints before they can support actionable decisions. This study proposes Food Guardian, an inventory-aware artificial intelligence agent that combines natural-language interaction with database retrieval, food-storage rules, and usage analysis. A large language model coordinates tool calls and generates candidate meals, while deterministic modules check ingredient availability, enforce defined constraints, and prioritize eligible ingredients by relevant dates. Missing storage information triggers clarification, and inventory changes require user confirmation. The prototype architecture is designed using Python, SQLite, Pandas, and a source-documented rule base. Evaluation employs 20--30 ingredient types, 20--30 recipes, and 30 benchmark scenarios covering sufficient inventory, shortages, date-related conditions, incomplete information, and preference conflicts. Experimental comparisons contrast a generic language model ($B_0$) and an inventory-conditioned model ($B_1$) against the full Food Guardian pipeline ($P$). Assessment measures recipe feasibility, inventory matching, date-reminder accuracy, rule violations, clarification behavior, and feasible-solution coverage. The expected contributions are an explainable agent prototype, traceable decision records, and a reproducible evaluation procedure for studying the integration of language-model planning with explicit inventory constraints.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Artificial intelligence agents, household food waste, inventory management, recipe recommendation, food-storage rules, tool calling.
+\end{IEEEkeywords}
+
+\section{Introduction}
+
+\subsection{Motivation and Societal Context}
+According to the United Nations Sustainable Development Goals (SDG) 2025 progress reporting on Goal 12.3 and the UNEP Food Waste Index Report~\cite{R1_UN_SDG2025, R7_UNEP2024}, global consumer food waste totals approximately 1.05 billion tonnes annually, across retail, food service, and household sectors. Households represent a substantial proportion of this waste. Consumers frequently purchase groceries without systematic visibility into remaining batch quantities, opening states, or optimal utilization sequence, resulting in avoidable spoilage. 
+
+\subsection{Problem Formulation and Practical Boundaries}
+The U.S. Food and Drug Administration (FDA) emphasizes that consumer confusion regarding date labeling (e.g., ``best if used by'' vs. ``use by'') and inadequate meal inventory management exacerbate household food waste~\cite{R2_FDA2026}. At the same time, cold food storage safety depends on nuanced factors including temperature, packaging integrity, and raw versus cooked status~\cite{R3_FoodSafety2023}. 
+
+While Large Language Models (LLMs) demonstrate remarkable conversational versatility, generative meal planners without grounded state verification exhibit notable failure modes:
+\begin{enumerate}
+    \item \textbf{Phantom Ingredients and Quantity Mismatch:} LLMs frequently recommend dishes requiring ingredients absent from the home or overlook portion scaling.
+    \item \textbf{Unchecked Storage Risks:} Generative planners fail to systematically identify ambiguous storage conditions or expired batches.
+    \item \textbf{Uncontrolled State Mutation:} Automated planners lack transactional integrity, deducting inventory without explicit human consent.
+\end{enumerate}
+
+\subsection{Research Gap and Proposed Approach}
+Prior research has addressed image-to-recipe retrieval~\cite{R4_Liu2025_WACV}, structured nutrition database querying via LLMs~\cite{R5_Vavken2026}, and personalized dietary quality recommendation~\cite{R6_Wang2026}. However, existing systems do not bridge dynamic, batch-tracked household inventories with deterministic rule verification and traceable conversational agents. 
+
+To address this gap, we present \textbf{Food Guardian}, an inventory-aware AI agent system. Food Guardian adopts a hybrid paradigm: an LLM acts as an interactive Planner Agent coordinating natural-language understanding, while deterministic algorithms enforce mathematical portion scaling, date-based prioritization, and hard food-safety constraint checks against an authoritative rule base.
+
+\subsection{Key Contributions}
+The primary contributions of this work are fourfold:
+\begin{enumerate}
+    \item \textbf{Hybrid Agent Architecture:} A modular design combining LLM conversational coordination with deterministic SQL inventory tracking, ensuring zero hallucinations in batch deduction.
+    \item \textbf{Formalized Verification Protocol:} A reproducible decision procedure (Algorithm 1) that explicitly flags missing storage metadata, prompts for human clarification, and halts execution before violating safety constraints.
+    \item \textbf{Rigorous Benchmark Framework:} A 30-scenario test suite across five typical household kitchen categories to evaluate feasibility, inventory matching, and safety compliance.
+    \item \textbf{Traceable Specification Methodology:} Complete alignment of architectural requirements, test cases, and behavioral boundaries using OpenSpec~\cite{T1_OpenSpec2026}.
+\end{enumerate}
+
+\section{Related Work}
+
+\subsection{AI in Recipe Generation and Food Retrieval}
+The application of AI to dietary planning has evolved significantly. Liu et al.~\cite{R4_Liu2025_WACV} developed retrieval-augmented recipe generation techniques to synthesize dish instructions from food imagery. While their work aligns visual embeddings with ingredient databases, it operates without constraints on physical household availability. Vavken et al.~\cite{R5_Vavken2026} evaluated LLMs in translating natural-language queries into structured database queries for nutritional systems, highlighting semantic precision limitations in complex field filters. Wang et al.~\cite{R6_Wang2026} introduced an LLM-RAG framework optimizing meal recommendations against the Healthy Eating Index (HEI). Although their system incorporates clinical dietary indices, it does not manage real-time pantry inventory transactions.
+
+\subsection{Domain Guidelines and Storage Heuristics}
+Domain knowledge in food preservation is critical for decision safety. The FDA provides consumer-facing guidance on food planning and safe handling~\cite{R2_FDA2026}. FoodSafety.gov maintains rigorous refrigeration and freezing duration tables categorized by commodity types~\cite{R3_FoodSafety2023}. Crucially, Food Guardian models these guidelines as structured verification rules rather than unconstrained prompt context.
+
+\begin{table*}[t]
+\caption{Summary of Related Work and Research Boundaries}
+\label{tab:related_work}
+\centering
+\begin{tabular}{lp{1.8cm}p{3.2cm}p{3.2cm}p{2.5cm}p{3.5cm}}
+\toprule
+\textbf{Ref} & \textbf{Focus} & \textbf{AI / Algorithmic Method} & \textbf{Domain Knowledge Source} & \textbf{Evaluation Dataset} & \textbf{Key Limitation / Research Boundary} \\
+\midrule
+Liu et al.~\cite{R4_Liu2025_WACV} & Vision-to-Recipe & Retrieval-Augmented Generation & Recipe \& ingredient ontology & Recipe1M dataset & Focuses on visual generation; does not account for pantry quantities or shelf-life. \\
+Vavken et al.~\cite{R5_Vavken2026} & Food Query Retrieval & LLM structured query translation & Food classification taxonomies & Food database query benchmarks & Analyzes query precision; lacks household inventory state tracking. \\
+Wang et al.~\cite{R6_Wang2026} & Nutritional Planning & LLM-RAG dietary recommendation & Healthy Eating Index (HEI) & NHANES / FPED nutritional data & Optimizes long-term nutrition; does not support dynamic kitchen stock deduction. \\
+FDA / FSIS~\cite{R2_FDA2026, R3_FoodSafety2023} & Consumer Safety & Deterministic shelf-life heuristics & Federal food-safety charts & Empirical food preservation guidelines & Static reference charts; requires automated integration for home use. \\
+\textbf{Food Guardian} & \textbf{Inventory-Aware Planning} & \textbf{Hybrid Agent: LLM Planner + Deterministic Verification} & \textbf{Authoritative Cold Storage Charts \& Expiration Rules} & \textbf{30 Standard Scenarios (Proposed)} & \textbf{Focuses on planning and inventory integrity; does not replace lab microbial safety tests.} \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsection{Research Hypothesis}
+Based on the synthesis summarized in Table~\ref{tab:related_work}, we formulate the following hypothesis: \textit{In identical inventory and dietary context states, a hybrid system with deterministic quantity calculation and rule-based screening will achieve significantly higher recipe execution feasibility and lower safety-rule violation rates than an unconstrained LLM or an inventory-prompted LLM.}
+
+\section{System Architecture and Workflow}
+
+\subsection{Architectural Components}
+Food Guardian is organized into four decoupled subsystems:
+\begin{itemize}
+    \item \textbf{Planner Agent:} Coordinates user dialogue, extracts meal intent (servings, dietary preferences, excluded ingredients), and orchestrates tool execution.
+    \item \textbf{Inventory and Recipe Engine:} A relational SQLite store managing batch items (Batch ID, Name, Quantity, Unit, In-stock Date, Expiration Type/Date, Opened Status, Storage Type).
+    \item \textbf{Deterministic Verification Module:} Implemented in Python; handles non-linear portion scaling, dimensional unit harmonization (e.g., mass, volume), and hard safety constraint filtering.
+    \item \textbf{Transactional State Manager:} Executes atomic ACID inventory updates only upon verified user confirmation.
+\end{itemize}
+
+\subsection{Decision Procedure (Algorithm 1)}
+The end-to-end operational logic of Food Guardian is formalized in Algorithm~\ref{alg:workflow}. The algorithm ensures that ambiguous data (e.g., undefined storage condition or incompatible units) triggers clarification prompts rather than generative guessing.
+
+\begin{algorithm}[t]
+\caption{Proposed Food Guardian Workflow}
+\label{alg:workflow}
+\begin{algorithmic}[1]
+\REQUIRE User query $Q$, inventory database $I$, recipe catalog $R$, safety rule base $K$, target servings $N$.
+\ENSURE Candidate dishes $C$, identified shortages $S$, explanations $E$, confirmed inventory updates $\Delta I$.
+\STATE Parse user query $Q$ for target servings $N$, dietary constraints, and requested style.
+\STATE Retrieve available inventory batches $B \leftarrow \text{Query}(I)$.
+\STATE Identify missing dates, unknown storage states, and non-convertible units in $B$.
+\IF{information is insufficient for decision}
+    \STATE Return clarification prompt to user; await input; goto line 2.
+\ENDIF
+\STATE Exclude batches violating defined safety rules: $B_{valid} \leftarrow \text{Filter}(B, K)$.
+\STATE Sort $B_{valid}$ ascending by applicable expiration date and storage priority.
+\STATE Retrieve candidate recipe set $R_{cand} \leftarrow \text{MatchRecipes}(B_{valid}, R)$.
+\FORALL{$r \in R_{cand}$}
+    \STATE Scale required ingredient quantities by factor $N / r.servings_{base}$.
+    \STATE Harmonize units between inventory $B_{valid}$ and recipe $r$.
+    \STATE Verify batch stock availability; identify ingredient shortages $s_r$.
+    \STATE Enforce hard user constraints (e.g., explicit allergen exclusions).
+\ENDFOR
+\STATE Rank feasible recipes; assemble explainable output $C, S, E$ detailing batch IDs, required quantities, and rule sources.
+\STATE Present $C, S, E$ to user; await explicit execution confirmation.
+\IF{user cancels or rejects proposal}
+    \STATE \textbf{terminate} without modifying database state $I$.
+\ENDIF
+\STATE Begin database transaction.
+\STATE Validate balance consistency and idempotency token.
+\IF{transaction fails or stock insufficient}
+    \STATE Rollback transaction; notify user.
+\ELSE
+    \STATE Update batch inventory: $I \leftarrow I - \Delta I$.
+    \STATE Insert traceable audit event into usage log.
+    \STATE Commit transaction.
+\ENDIF
+\RETURN Updated inventory status and execution record.
+\end{algorithmic}
+\end{algorithm}
+
+\section{Experimental Setup and Evaluation Protocol}
+
+\subsection{Baseline Configurations}
+To systematically analyze the source of performance gains, three experimental cohorts are evaluated under identical prompt temperatures ($T=0.2$):
+\begin{itemize}
+    \item \textbf{Baseline 0 ($B_0$ - Generic LLM):} Receives only the natural language cooking request without inventory state.
+    \item \textbf{Baseline 1 ($B_1$ - Inventory-Conditioned LLM):} Receives complete inventory snapshots and rule texts directly in context, relying on pure generative reasoning.
+    \item \textbf{Proposed Pipeline ($P$ - Food Guardian):} Integrates deterministic tool calling, unit conversion, and rule-based pre/post-filtering.
+\end{itemize}
+
+\subsection{Benchmark Scenario Categorization}
+A benchmark suite of 30 structured test scenarios is established, spanning 20--30 ingredient items and 20--30 standardized recipes:
+\begin{enumerate}
+    \item \textbf{Sufficient Stock (6 scenarios):} Full ingredient coverage with diverse expiration horizons.
+    \item \textbf{Ingredient Shortages (6 scenarios):} Recipes missing partial quantities or key staples.
+    \item \textbf{Date and Storage Boundary (6 scenarios):} Batches near expiration or past safe storage periods.
+    \item \textbf{Incomplete Information (6 scenarios):} Omitted storage type, missing purchase date, or ambiguous package units.
+    \item \textbf{Constraint and Preference Conflict (6 scenarios):} High-priority user exclusions conflicting with near-expiration ingredients.
+\end{enumerate}
+
+\subsection{Evaluation Metrics}
+Each scenario is executed over three independent runs. Performance is assessed using six quantitative metrics:
+\begin{itemize}
+    \item \textbf{Recipe Feasibility Rate ($R_{feas}$):} Percentage of recommended recipes whose ingredients are genuinely available and sufficient for $N$ servings.
+    \item \textbf{Inventory Matching Accuracy ($A_{inv}$):} Exactness of deducted batch quantities against required recipe amounts.
+    \item \textbf{Date-Reminder Accuracy ($P_{exp}$):} Correct prioritization of near-expiration batches over fresher stock.
+    \item \textbf{Rule Violation Rate ($V_{rule}$):} Proportion of recommendations incorporating batches that violate defined storage rules.
+    \item \textbf{Clarification Behavior ($C_{clar}$):} Frequency of correctly issuing clarification requests when input data is incomplete.
+    \item \textbf{Feasible Solution Coverage ($S_{cov}$):} Ability to identify at least one valid recipe when viable inventory exists.
+\end{itemize}
+
+\section{Discussion and Limitations}
+
+\subsection{Distinction Between Reminders and Safety Guarantees}
+Food Guardian explicitly distinguishes inventory scheduling reminders from biochemical safety guarantees. Software cannot observe cold-chain temperature interruptions, cross-contamination, or sensory spoilage indicators. Consequently, system outputs serve as decision support rather than authoritative sanitation certifications.
+
+\subsection{Jurisdictional Regulatory Differences}
+Federal U.S. guidelines (e.g., FDA~\cite{R2_FDA2026}) provide foundational principles for date interpretations. However, practical deployment in other jurisdictions (such as Taiwan) necessitates aligning expiration classifications with local Food and Drug Administration labeling statutes.
+
+\subsection{Deterministic Verification vs. Generative Flexibility}
+A central design trade-off lies between conversational fluidity and deterministic rigor. While unconstrained LLMs generate novel culinary suggestions, they risk hallucinatory deductions. Food Guardian prioritizes verifiable state management, ensuring that every deduction corresponds to an immutable database transaction.
+
+\section{Conclusion and Future Work}
+This paper presented the design, architecture, and evaluation framework of Food Guardian, an inventory-aware agent system for household food management. By coupling conversational LLM interfaces with deterministic verification pipelines, Food Guardian provides actionable meal recommendations while safeguarding inventory integrity and adhering to storage rules. Future work will deploy the prototype in longitudinal household field trials to empirically quantify its impact on domestic waste reduction.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

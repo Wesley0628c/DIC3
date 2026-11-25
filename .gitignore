@@ -14,3 +14,4 @@ tooling/node_modules/
 *.db-wal
 data/chroma_db/
 evaluation/results/live_*
+paper/*.zip
